@@ -1,1 +1,3 @@
-# techdegree-project-4
+# Techdegree Project 4
+
+OOP Game Show App

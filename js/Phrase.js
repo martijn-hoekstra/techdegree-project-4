@@ -20,7 +20,7 @@ class Phrase {
             } else {
                 const space = document.createElement('li');
                 space.className = 'space';
-                space.textContent = li.textContent = phrase[i];
+                space.textContent = phrase[i];
                 list.appendChild(space);
             }
         }
@@ -30,7 +30,7 @@ class Phrase {
         if(this.phrase.includes(char)){
             this.showMatchedLetter(char);
         } else {
-            // remove heart?
+            game.removeLife();
         }
     }
 
