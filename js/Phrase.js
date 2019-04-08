@@ -7,6 +7,9 @@ class Phrase {
         this.phrase = phrase.toLowerCase();
     }
 
+    /**
+     * Adds the phrase to the gameboard, hidden by gray boxes.
+     */
     addPhraseToDisplay(){
         const phrase = this.phrase;
         const list = document.querySelector('#phrase ul');
@@ -26,6 +29,10 @@ class Phrase {
         }
     }
 
+    /**
+     * Checks if a letter is in the phrase.
+     * @param {string} char 
+     */
     checkLetter(char){
         if(this.phrase.includes(char)){
             this.showMatchedLetter(char);
@@ -34,6 +41,10 @@ class Phrase {
         }
     }
 
+    /**
+     * Reveals the letter(s) on the board that matches the player's selection.
+     * @param {string} char 
+     */
     showMatchedLetter(char){
         const list = document.querySelector('#phrase ul').children;
         for(let i = 0; i < list.length; i++){

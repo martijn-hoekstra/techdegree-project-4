@@ -176,7 +176,22 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: 5px;
+}
+
+#overlay.won {
+  background-color:green;
+  background-image:url(../images/won.png);
+  background-size:30%;
+  background-position:left bottom;
+  background-repeat:no-repeat;
+}
+
+#overlay.lost {
+  background-color:red;
+  background-image:url(../images/lost.png);
+  background-size:30%;
+  background-position:left bottom;
+  background-repeat:no-repeat;
 }
 
 .title {
