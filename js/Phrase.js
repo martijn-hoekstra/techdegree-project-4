@@ -8,7 +8,7 @@ class Phrase {
     }
 
     /**
-     * Adds the phrase to the gameboard, hidden by gray boxes.
+     * Adds the phrase to the gameboard, and hides it using gray boxes.
      */
     addPhraseToDisplay(){
         const phrase = this.phrase;

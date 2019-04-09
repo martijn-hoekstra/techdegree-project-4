@@ -179,15 +179,16 @@ button {
 }
 
 #overlay.won {
-  background-color:green;
+  background-color:#00A86B;
   background-image:url(../images/won.png);
   background-size:30%;
   background-position:left bottom;
   background-repeat:no-repeat;
+  
 }
 
 #overlay.lost {
-  background-color:red;
+  background-color:#da1f00;
   background-image:url(../images/lost.png);
   background-size:30%;
   background-position:left bottom;

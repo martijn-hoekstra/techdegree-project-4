@@ -34,25 +34,30 @@
      * @param {object} e - the event object coming from the addEventListener
      */
     handleInteraction(e){
-        if(e.target.tagName === 'BUTTON') {
-            const button = e.target;
-            game.activePhrase.checkLetter(button.textContent);
-            e.target.disabled = true;
-            e.target.classList.add('disabled');
-            game.checkForWin();
-        } else {
-            const key = e.key.toLowerCase();
-            if(/^[a-z]{1}$/.test(key)){
-                game.activePhrase.checkLetter(key);
-                const qwerty = document.querySelectorAll('#qwerty .key');
-                for(let i = 0; i < qwerty.length; i++){
-                    if(qwerty[i].textContent === key){
-                        qwerty[i].disabled = true;
-                        qwerty[i].classList.add('disabled');
-                        break;
+        if(game.missed < 5) {
+            if(e.type === 'click'){
+                if(e.target.tagName === 'BUTTON') {
+                    const button = e.target;
+                    game.activePhrase.checkLetter(button.textContent);
+                    e.target.disabled = true;
+                    e.target.classList.add('disabled');
+                    game.checkForWin();
+                }
+            } else {
+                const key = e.key.toLowerCase();
+                if(/^[a-z]{1}$/.test(key)){
+                    const qwerty = document.querySelectorAll('#qwerty .key');
+                    for(let i = 0; i < qwerty.length; i++){
+                        const button = qwerty[i];
+                        if(button.textContent === key && !(button.classList.contains('disabled'))){
+                            game.activePhrase.checkLetter(key);
+                            button.disabled = true;
+                            button.classList.add('disabled');
+                            game.checkForWin();
+                            break;
+                        }
                     }
                 }
-                game.checkForWin();
             }
         }
     }
@@ -96,6 +101,7 @@
         const overlay = document.getElementById('overlay');
         overlay.style.display = '';
         const gameOverMessage = document.getElementById('game-over-message');
+        window.removeEventListener('keyup', game.handleInteraction);
 
         if(state){
             gameOverMessage.textContent = 'You won!';
