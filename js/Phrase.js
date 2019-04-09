@@ -8,7 +8,7 @@ class Phrase {
     }
 
     /**
-     * Adds the phrase to the gameboard, and hides it using gray boxes.
+     * Displays the active phrase on the gameboard using gray boxes to hide the letters.
      */
     addPhraseToDisplay(){
         const phrase = this.phrase;
@@ -30,7 +30,7 @@ class Phrase {
     }
 
     /**
-     * Checks if a letter is in the phrase.
+     * Checks if the active phrase contains the selected letter.
      * @param {string} char 
      */
     checkLetter(char){

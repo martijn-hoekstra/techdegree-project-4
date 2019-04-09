@@ -10,14 +10,13 @@
     }
 
     /**
-     * Starts the game by removing the overlay and displays a (hidden) random phrase.
+     * Starts the game by removing the overlay and display a (hidden) random phrase.
      */
     startGame(){
         const overlay = document.getElementById('overlay');
         overlay.style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
-        // console.log(this.activePhrase);
     }
 
     /**
@@ -30,11 +29,13 @@
     }
 
     /**
-     * 
+     * Handles player interaction with the gameboard. Both mouse clicks and keypresses disables
+     * the selected letters and calls relevant functions to check if the active phrase contains that letter.
      * @param {object} e - the event object coming from the addEventListener
      */
     handleInteraction(e){
         if(game.missed < 5) {
+            // mouse interaction
             if(e.type === 'click'){
                 if(e.target.tagName === 'BUTTON') {
                     const button = e.target;
@@ -44,6 +45,7 @@
                     game.checkForWin();
                 }
             } else {
+                // physical keyboard interaction
                 const key = e.key.toLowerCase();
                 if(/^[a-z]{1}$/.test(key)){
                     const qwerty = document.querySelectorAll('#qwerty .key');
@@ -74,12 +76,12 @@
     }
 
     /**
-     * 
-     * @return - doesn't return a value, but simply quits out of the method when the user lost
+     * Checks if the player has revealed all of the letters in the active phrase
+     * @return - doesn't return a value, but simply quits out of the method when the player lost
      */
     checkForWin(){
         const list = document.querySelector('#phrase ul').children;
-        // checks if there are unrevealed letters, if there are it quits the function
+        // checks if there are unrevealed letters, if there are it quits out of the method
         for(let i = 0; i < list.length; i++) {
             if(list[i].classList.contains('hide')){
                 if(this.missed > 4) {
@@ -93,16 +95,18 @@
     }
 
     /**
-     * 
-     * @param {boolean} state - returned from checkForWin()
+     * Resets the gameboard and changes the overlay based on the
+     * value returned from the checkForWin() method.
+     * @param {boolean} state - returned from the checkForWin() method
      */
     gameOver(state){
         this.missed = 0;
         const overlay = document.getElementById('overlay');
         overlay.style.display = '';
         const gameOverMessage = document.getElementById('game-over-message');
-        window.removeEventListener('keyup', game.handleInteraction);
+        window.removeEventListener('keypress', game.handleInteraction);
 
+        // change overlay based on if the player won or lost
         if(state){
             gameOverMessage.textContent = 'You won!';
             overlay.className = 'won';
@@ -111,6 +115,7 @@
             overlay.className = 'lost';
         }
 
+        // reset all the keys to become active again
         const qwerty = document.querySelectorAll('#qwerty button');
         document.querySelector('#phrase ul').innerHTML = '';
         for(let i = 0; i < qwerty.length; i++) {
@@ -120,6 +125,7 @@
             }
         }
 
+        // reset the heart images
         const lifes = document.querySelectorAll('#scoreboard .tries img[src*="lostHeart"]');
         for(let i = 0; i < lifes.length; i++){
             lifes[i].src = 'images/liveHeart.png';
